@@ -11,7 +11,7 @@
 <?php
 session_start();
 
-	echo 'Welcome ';
+	echo 'Welcome ' . $_SESSION['CurrentUser'];
 
 ?>
 

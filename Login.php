@@ -1,4 +1,6 @@
-
+<?php
+session_start();
+?>
 <html>
 <head>
   <title>Login</title>
@@ -7,7 +9,7 @@
   <section class="container">
     <div class="login">
       <h1>Login test</h1>
-      <form method="post" action="loginprocess.php"> 
+      <form method="post" action="login.php"> 
         <p><input type="text" name="inputlogin" value="" placeholder="Username or Email"></p>
         <p><input type="password" name="inputpassword" value="" placeholder="Password"></p>
        
@@ -21,12 +23,28 @@
   </section>
   
 <?php
+		
+		require_once("connect.php");
+
 if(isset($_POST['commit'])){
 $username = $_POST['inputlogin'];
 $password = $_POST['inputpassword'];
-echo "Welcome back, " . $username;
-}else{
-echo 'Please enter your username';	
+
+$sql = "SELECT username FROM user WHERE username = '$username' and password = '$password'";
+      $result = mysqli_query($conn,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        $active = $row['active'];
+      
+      $count = mysqli_num_rows($result);
+			
+		   if($count == 1) {
+         
+         $_SESSION['CurrentUser'] = $username;
+         
+         header("location: profile.php");
+      }else {
+         echo "Your Username or Password is invalid";
+      }
 }
 ?>
  
