@@ -10,7 +10,7 @@ session_start();
     <div class="login">
       <h1>Login test</h1>
       <form method="post" action="login.php"> 
-        <p><input type="text" name="inputlogin" value="" placeholder="Username or Email"></p>
+        <p><input type="text" name="inputlogin" value="" placeholder="Username"></p>
         <p><input type="password" name="inputpassword" value="" placeholder="Password"></p>
        
         <p class="submit"><input type="submit" name="commit" value="Login"></p>
@@ -18,7 +18,7 @@ session_start();
     </div>
 
     <div class="login-help">
-      <p>Not a member? <a href="index.html">Click here to register</a>.</p>
+      <p>Not a member? <a href="register2.php">Click here to register</a>.</p>
     </div>
   </section>
   
