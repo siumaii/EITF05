@@ -11,8 +11,9 @@
 <?php
 session_start();
 
-	echo 'Welcome ' . $_SESSION['CurrentUser'];
-
+	if(isset($_SESSION['CurrentUser'])){
+		echo 'Welcome ' . $_SESSION['CurrentUser'];
+	}
 ?>
 
 </html>
