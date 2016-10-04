@@ -41,7 +41,7 @@ $sql = "SELECT username FROM user WHERE username = '$username' and password = '$
          
          $_SESSION['CurrentUser'] = $username;
          
-         header("location: profile.php");
+         header("location: index.php");
       }else {
          echo "Your Username or Password is invalid";
       }
