@@ -15,9 +15,11 @@ session_start();
 	// if counter is not set, set to zero
 if(!isset($_SESSION['Cookies'])) {
     $_SESSION['Cookies'] = 0;
+    $_SESSION['counterCookie'] = 0;
 }
 if(!isset($_SESSION['Bananas'])) {
     $_SESSION['Bananas'] = 0;
+    $_SESSION['counterBanana'] = 0;
 }
 
 

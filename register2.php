@@ -29,11 +29,14 @@ $registerAddress = $_POST['RAddress'];
 $registerPassword = $_POST['RPass'];
 $registerRePassword = $_POST['RRePass'];
 if($registerPassword == $registerRePassword){
-$query="SELECT * FROM 'user'";
-$sql = "INSERT INTO user (username, password, address)
-VALUES ('$registerName', '$registerPassword' , '$registerAddress')";
+$hashedPassword = password_hash($registerPassword,PASSWORD_DEFAULT);
+//$query="SELECT * FROM 'user'";
+$stmt = $conn->prepare("INSERT INTO user (username, password, address) VALUES (?,?,?)");
+$stmt->bind_param("sss",$registerName,$hashedPassword, $registerAddress);
+//$sql = "INSERT INTO user (username, password, address);
+//VALUES ('$registerName', '$registerPassword' , '$registerAddress')";
 
-if ($conn->query($sql) === TRUE) {
+if ($stmt->execute() === TRUE) {
    header ("Location: login.php");
 } else {
     echo "Username already exist.";

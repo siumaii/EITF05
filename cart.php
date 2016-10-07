@@ -29,8 +29,8 @@ if(isset($_POST['BuyButton'])){
 	$boughtBanana = $_SESSION['counterBanana'];
 	$boughtCookie = $_SESSION['counterCookie'];
 	
-	$sqlB = "UPDATE storage SET amount=GREATEST(0, amount - $boughtBanana ) WHERE product='banana'";
-	$sqlC = "UPDATE storage SET amount=GREATEST(0, amount - $boughtCookie ) WHERE product='cookie'";
+	$sqlB = "UPDATE product SET amount=GREATEST(0, amount - $boughtBanana ) WHERE name='banana'";
+	$sqlC = "UPDATE product SET amount=GREATEST(0, amount - $boughtCookie ) WHERE name='cookie'";
 if ($conn->query($sqlB) === TRUE && $conn->query($sqlC) === TRUE) {
     echo "Record updated successfully";
 	header("location: receipt.php");
