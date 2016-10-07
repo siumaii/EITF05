@@ -34,7 +34,7 @@ $sql = "INSERT INTO user (username, password, address)
 VALUES ('$registerName', '$registerPassword' , '$registerAddress')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
+   header ("Location: login.php");
 } else {
     echo "Username already exist.";
 }
