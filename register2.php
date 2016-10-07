@@ -32,21 +32,18 @@ if($registerPassword == $registerRePassword){
 $query="SELECT * FROM 'user'";
 $sql = "INSERT INTO user (username, password, address)
 VALUES ('$registerName', '$registerPassword' , '$registerAddress')";
+
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
 } else {
     echo "Username already exist.";
 }
-// if($query){
-// echo ', it worked';
-// }
-// else{
-// echo " Did not work";
-// }
+
 }else{
 echo "Password did not match.";	
 }
-}
+ }
+ 
  ?> 
 </body>
 </html>

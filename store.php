@@ -3,6 +3,7 @@
   <title>Store</title>
 </head>
 <?php
+require_once("connect.php");
 session_start();
 
 	echo 'Logged in as ' . $_SESSION['CurrentUser'];
@@ -12,25 +13,27 @@ session_start();
 		echo ' (!)</p>';
 	}
 	// if counter is not set, set to zero
-if(!isset($_SESSION['counterCookie'])) {
-    $_SESSION['counterCookie'] = 0;
+if(!isset($_SESSION['Cookies'])) {
+    $_SESSION['Cookies'] = 0;
 }
-if(!isset($_SESSION['counterBanana'])) {
-    $_SESSION['counterBanana'] = 0;
+if(!isset($_SESSION['Bananas'])) {
+    $_SESSION['Bananas'] = 0;
 }
+
+
 
 // if button is pressed, increment counter
 if(isset($_POST['button+b'])) {
-    ++$_SESSION['counterBanana'];
+    ++$_SESSION['Bananas'];
 }
-if(isset($_POST['button-b']) && $_SESSION['counterBanana'] > 0){
-    --$_SESSION['counterBanana'];
+if(isset($_POST['button-b']) && $_SESSION['Bananas'] > 0){
+    --$_SESSION['Bananas'];
 }    
 if(isset($_POST['button+c'])) {
-    ++$_SESSION['counterCookie'];
+    ++$_SESSION['Cookies'];
 }
-if(isset($_POST['button-c'])  && $_SESSION['counterCookie'] > 0) {
-    --$_SESSION['counterCookie'];
+if(isset($_POST['button-c'])  && $_SESSION['Cookies'] > 0) {
+    --$_SESSION['Cookies'];
 } 
 ?>
 <body>
@@ -48,16 +51,33 @@ if(isset($_POST['button-c'])  && $_SESSION['counterCookie'] > 0) {
 
 </tr>
 <tr>
+<th>Stock: tba</th>
+<th>Stock: tba</th>
+</tr>
+<tr>
 <th>5kr/each</th>
 <th>10kr/each</th>
 </tr>
 <tr>
-<th> <input type="submit" name="button-b" value="-" /><input type="text" name="bananaCount" value="" placeholder="<?php echo $_SESSION['counterBanana']; ?>"><input type="submit" name="button+b" value="+" /></th>
-<th> <input type="submit" name="button-c" value="-" /><input type="text" name="cookieCount" value="" placeholder="<?php echo $_SESSION['counterCookie']; ?>"><input type="submit" name="button+c" value="+" /></th>
+<th> <input type="submit" name="button-b" value="-" /><?php echo " " . $_SESSION['Bananas'] . " "; ?><input type="submit" name="button+b" value="+" /></th>
+<th> <input type="submit" name="button-c" value="-" /><?php echo " " . $_SESSION['Cookies'] . " "; ?><input type="submit" name="button+c" value="+" /></th>
 </tr>
 </table>
  <p align="right"><input type="submit" name="cart" value="Add to cart" /></p>
 </form>
+<?php
+ if(isset($_POST['cart'])){
+	 $_SESSION['counterBanana'] += $_SESSION['Bananas'];
+	 $_SESSION['counterCookie'] += $_SESSION['Cookies'];
+	 unset($_SESSION['Bananas']);
+	 unset($_SESSION['Cookies']);
+ }
+
+
+
+//<input type="text" name="cookieCount" value="" placeholder="">
+// <input type="text" name="bananaCount" value="" placeholder=""> 
+?>
 </body>
 
 

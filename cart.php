@@ -5,6 +5,7 @@
 <body>
 <?php
 session_start();
+require_once('connect.php');
 	$sumBanana = $_SESSION['counterBanana']*5;
 	$sumCookie = $_SESSION['counterCookie']*10;
 	$_SESSION['sumTotal'] = $sumBanana+$sumCookie;
@@ -21,8 +22,22 @@ session_start();
 	echo 'Total: ' . $_SESSION['sumTotal'] . ' kr';
 	
 	if($_SESSION['counterCookie'] > 0 || $_SESSION['counterBanana'] > 0){
-		echo '<form action="receipt.php" align="right"><input type="submit" value="Buy" /></form>';
+		echo '<form method="post" action="cart.php" align="right"><input type="submit" name="BuyButton" value="Buy"></form>';
 	}
+	
+if(isset($_POST['BuyButton'])){
+	$boughtBanana = $_SESSION['counterBanana'];
+	$boughtCookie = $_SESSION['counterCookie'];
+	
+	$sqlB = "UPDATE storage SET amount=GREATEST(0, amount - $boughtBanana ) WHERE product='banana'";
+	$sqlC = "UPDATE storage SET amount=GREATEST(0, amount - $boughtCookie ) WHERE product='cookie'";
+if ($conn->query($sqlB) === TRUE && $conn->query($sqlC) === TRUE) {
+    echo "Record updated successfully";
+	header("location: receipt.php");
+} else {
+    echo "Error updating record: " . $conn->error;
+}
+}
 ?>
 </body>
 </head>
