@@ -32,8 +32,6 @@ $password = $_POST['inputpassword'];
 $sql = "SELECT password FROM user WHERE username = '$username'";
 $result = $conn->query($sql);   
 $pwd = $result->fetch_assoc();
-var_dump($pwd);
-var_dump($password);
 
   if(password_verify($password,$pwd['password'])){
     $_SESSION['CurrentUser'] = $username;
