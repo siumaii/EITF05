@@ -22,7 +22,6 @@
   </section>
 <?php
   require_once("connect.php");
-
 if(isset($_POST['register'])){
 $registerName = $_POST['RName'];
 $registerAddress = $_POST['RAddress'];
@@ -35,13 +34,11 @@ $stmt = $conn->prepare("INSERT INTO user (username, password, address) VALUES (?
 $stmt->bind_param("sss",$registerName,$hashedPassword, $registerAddress);
 //$sql = "INSERT INTO user (username, password, address);
 //VALUES ('$registerName', '$registerPassword' , '$registerAddress')";
-
 if ($stmt->execute() === TRUE) {
    header ("Location: login.php");
 } else {
     echo "Username already exist.";
 }
-
 }else{
 echo "Password did not match.";	
 }
@@ -50,4 +47,3 @@ echo "Password did not match.";
  ?> 
 </body>
 </html>
-

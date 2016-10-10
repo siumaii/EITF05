@@ -11,7 +11,7 @@ require_once('connect.php');
 	$_SESSION['sumTotal'] = $sumBanana+$sumCookie;
 	
 	echo 'Logged in as ' . $_SESSION['CurrentUser'];
-	echo '<p><a href="logout.php">Click here to log out</a></p>';
+	echo '<p><a href="logout.php?validation=' . $_SESSION["token"] . '">Click here to log out</a></p>';
 	echo '<p><a href="store.php">Shop</a></p>';
 	if($_SESSION['counterBanana']>0){
 		echo '<form action="resetBanana.php">Bananas: ' . $_SESSION['counterBanana'] . ' (' . $sumBanana . ' kr) <input type="submit" value="X" /></form>';
@@ -29,8 +29,8 @@ if(isset($_POST['BuyButton'])){
 	$boughtBanana = $_SESSION['counterBanana'];
 	$boughtCookie = $_SESSION['counterCookie'];
 	
-	$sqlB = "UPDATE product SET amount=GREATEST(0, amount - $boughtBanana ) WHERE name='banana'";
-	$sqlC = "UPDATE product SET amount=GREATEST(0, amount - $boughtCookie ) WHERE name='cookie'";
+	$sqlB = "UPDATE storage SET amount=GREATEST(0, amount - $boughtBanana ) WHERE product='banana'";
+	$sqlC = "UPDATE storage SET amount=GREATEST(0, amount - $boughtCookie ) WHERE product='cookie'";
 if ($conn->query($sqlB) === TRUE && $conn->query($sqlC) === TRUE) {
     echo "Record updated successfully";
 	header("location: receipt.php");

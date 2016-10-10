@@ -7,7 +7,7 @@ require_once("connect.php");
 session_start();
 
 	echo 'Logged in as ' . $_SESSION['CurrentUser'];
-	echo '<p><a href="logout.php">Click here to log out</a></p>';
+echo '<p><a href="logout.php?validation=' . $_SESSION["token"] . '">Click here to log out</a></p>';
 	echo '<p><a href="cart.php">Go to cart</a>';
 	if(isset($_POST['cart'])){
 		echo ' (!)</p>';
@@ -15,11 +15,11 @@ session_start();
 	// if counter is not set, set to zero
 if(!isset($_SESSION['Cookies'])) {
     $_SESSION['Cookies'] = 0;
-    $_SESSION['counterCookie'] = 0;
+	$_SESSION['counterCookie'] = 0;
 }
 if(!isset($_SESSION['Bananas'])) {
     $_SESSION['Bananas'] = 0;
-    $_SESSION['counterBanana'] = 0;
+	$_SESSION['counterBanana'] = 0;
 }
 
 
@@ -47,14 +47,22 @@ if(isset($_POST['button-c'])  && $_SESSION['Cookies'] > 0) {
 <th>Cookies</th>
 </tr>
 <tr>
-<th><img src="banana.jpg" alt="banana" style="width:304px;height:228px;"></th>
+<th><img src="bilder/banana.jpg" alt="banana" style="width:304px;height:228px;"></th>
 </th>
-<th><img src="cookie.png" alt="cookie" style="width:304px;height:228px;"></th>
+<th><img src="bilder/cookie.png" alt="cookie" style="width:304px;height:228px;"></th>
 
 </tr>
 <tr>
-<th>Stock: tba</th>
-<th>Stock: tba</th>
+<th>Stock: <?php 
+$sql = "SELECT amount FROM storage WHERE product = 'banana'";
+$result = $conn->query($sql);   
+$stockB = $result->fetch_assoc();
+echo $stockB['amount']; ?></th>
+<th>Stock: <?php 
+$sql = "SELECT amount FROM storage WHERE product = 'cookie'";
+$result = $conn->query($sql);   
+$stockB = $result->fetch_assoc();
+echo $stockB['amount']; ?></th>
 </tr>
 <tr>
 <th>5kr/each</th>

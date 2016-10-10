@@ -25,26 +25,21 @@ session_start();
 <?php
 		
 		require_once("connect.php");
-
 if(isset($_POST['commit'])){
 $username = $_POST['inputlogin'];
 $password = $_POST['inputpassword'];
-
-$sql = "SELECT username FROM user WHERE username = '$username' and password = '$password'";
-      $result = mysqli_query($conn,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-        $active = $row['active'];
-      
-      $count = mysqli_num_rows($result);
-			
-		   if($count == 1) {
-         
-         $_SESSION['CurrentUser'] = $username;
-         
-         header("location: index.php");
-      }else {
-         echo "Your Username or Password is invalid";
-      }
+$sql = "SELECT password FROM user WHERE username = '$username'";
+$result = $conn->query($sql);   
+$pwd = $result->fetch_assoc();
+var_dump($pwd);
+var_dump($password);
+  if(password_verify($password,$pwd['password'])){
+    $_SESSION['CurrentUser'] = $username;
+    header("location: index.php");
+    }
+    else{
+    echo "Your Username or Password is invalid";
+    }
 }
 ?>
  
