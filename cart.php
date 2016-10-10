@@ -8,21 +8,30 @@ session_start();
 require_once('connect.php');
 	$sumBanana = $_SESSION['counterBanana']*5;
 	$sumCookie = $_SESSION['counterCookie']*10;
-	$_SESSION['sumTotal'] = $sumBanana+$sumCookie;
+	$sumTotal = $sumBanana+$sumCookie;
 	
 	echo 'Logged in as ' . $_SESSION['CurrentUser'];
 	echo '<p><a href="logout.php?validation=' . $_SESSION["token"] . '">Click here to log out</a></p>';
 	echo '<p><a href="store.php">Shop</a></p>';
+	
 	if($_SESSION['counterBanana']>0){
-		echo '<form action="resetBanana.php">Bananas: ' . $_SESSION['counterBanana'] . ' (' . $sumBanana . ' kr) <input type="submit" value="X" /></form>';
+		echo '<form method="post" action="cart.php">Bananas: ' . $_SESSION['counterBanana'] . ' (' . $sumBanana . ' kr) <input type="submit" value="X" name="xB"/></form>';
 	}
 	if($_SESSION['counterCookie']>0){
-		echo '<form action="resetCookie.php">Cookies: ' . $_SESSION['counterCookie'] . ' (' . $sumCookie . ' kr) <input type="submit" value="X" /></form>';
+		echo '<form method="post" action="cart.php">Cookies: ' . $_SESSION['counterCookie'] . ' (' . $sumCookie . ' kr) <input type="submit" value="X" name ="xC"/></form>';
 	}
-	echo 'Total: ' . $_SESSION['sumTotal'] . ' kr';
+	echo 'Total: ' . $sumTotal . ' kr';
 	
 	if($_SESSION['counterCookie'] > 0 || $_SESSION['counterBanana'] > 0){
 		echo '<form method="post" action="cart.php" align="right"><input type="submit" name="BuyButton" value="Buy"></form>';
+	}
+	if(isset($_POST['xB'])){
+		$_SESSION['counterBanana']=0;
+		header ("location: cart.php");
+	}
+	if(isset($_POST['xC'])){
+		$_SESSION['counterCookie']=0;
+	header ("location: cart.php");
 	}
 	
 if(isset($_POST['BuyButton'])){
