@@ -8,7 +8,7 @@ session_start();
 require_once('connect.php');
 	$sumBanana = $_SESSION['counterBanana']*5;
 	$sumCookie = $_SESSION['counterCookie']*10;
-	$sumTotal = $sumBanana+$sumCookie;
+	$_SESSION['sumTotal'] = $sumBanana+$sumCookie;
 	
 	echo 'Logged in as ' . $_SESSION['CurrentUser'];
 	echo '<p><a href="logout.php?validation=' . $_SESSION["token"] . '">Click here to log out</a></p>';
@@ -20,7 +20,7 @@ require_once('connect.php');
 	if($_SESSION['counterCookie']>0){
 		echo '<form method="post" action="cart.php">Cookies: ' . $_SESSION['counterCookie'] . ' (' . $sumCookie . ' kr) <input type="submit" value="X" name ="xC"/></form>';
 	}
-	echo 'Total: ' . $sumTotal . ' kr';
+	echo 'Total: ' . $_SESSION['sumTotal'] . ' kr';
 	
 	if($_SESSION['counterCookie'] > 0 || $_SESSION['counterBanana'] > 0){
 		echo '<form method="post" action="cart.php" align="right"><input type="submit" name="BuyButton" value="Buy"></form>';

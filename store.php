@@ -7,24 +7,31 @@ require_once("connect.php");
 session_start();
 
 	echo 'Logged in as ' . $_SESSION['CurrentUser'];
+	echo '<p><a href="index.php">Home</a>';
 echo '<p><a href="logout.php?validation=' . $_SESSION["token"] . '">Click here to log out</a></p>';
 	echo '<p><a href="cart.php">Go to cart</a>';
 	if(isset($_POST['cart'])){
 		echo ' (!)</p>';
 	}
-	// if counter is not set, set to zero
+
 if(!isset($_SESSION['Cookies'])) {
     $_SESSION['Cookies'] = 0;
-	$_SESSION['counterCookie'] = 0;
+	
 }
 if(!isset($_SESSION['Bananas'])) {
     $_SESSION['Bananas'] = 0;
+	
+}
+if(!isset($_SESSION['counterCookie'])) {
+   
+	$_SESSION['counterCookie'] = 0;
+}
+if(!isset($_SESSION['counterBanana'])) {
+   
 	$_SESSION['counterBanana'] = 0;
 }
 
 
-
-// if button is pressed, increment counter
 if(isset($_POST['button+b'])) {
     ++$_SESSION['Bananas'];
 }
@@ -83,10 +90,6 @@ echo $stockB['amount']; ?></th>
 	 unset($_SESSION['Cookies']);
  }
 
-
-
-//<input type="text" name="cookieCount" value="" placeholder="">
-// <input type="text" name="bananaCount" value="" placeholder=""> 
 ?>
 </body>
 
